@@ -108,7 +108,8 @@ axios.get(url1)
   .then((response) => {
     console.log('working4444');
     console.log('response.data', response.data);
-    res.render('index', { title: response.data });
+    res.render('index', { title: response.data.success });
+    // response.data { data: null, success: true, notifications: null } this is the final json that is returned
   })
   .catch(error => {
     body = error.response.data //.notifications.fieldErrors
