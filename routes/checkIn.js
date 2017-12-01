@@ -3,13 +3,17 @@ var express = require('express');
 var router = express.Router();
 const axios = require("axios");
 
-router.get('/', function(req, res, next) {
+router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress', function(req, res, next) {
 
-var firstName = 'john'
-var lastName = 'seyfert'
-var confirmationNumber = 'MWVE2L'
-var emailAddress = 'johnseyfert@gmail.com'
-// var confirmationNumber = 'LNUF87' // not found
+  // console.log('asdfasdf', req.params);
+
+  // http://localhost:3000/checkIn/john/seyfert/MWVE2L/johnseyfert@gmail.com
+  // http://localhost:3000/checkIn/john/seyfert/LNUF87/johnseyfert@gmail.com //not found
+
+var firstName = req.params.firstName
+var lastName = req.params.lastName
+var confirmationNumber = req.params.confirmationNumber
+var emailAddress = req.params.emailAddress
 
 const headers = {headers: {'Content-Type': 'application/json', 'X-API-Key': 'l7xx944d175ea25f4b9c903a583ea82a1c4c', } }
 
@@ -61,7 +65,7 @@ axios.get(url1)
     })
 
     return axios.post(url2, data2, headers)
-    
+
   })
   .then((response) => {
     console.log('working22');
@@ -104,9 +108,27 @@ axios.get(url1)
   .then((response) => {
     console.log('working4444');
     console.log('response.data', response.data);
+    res.render('index', { title: response.data });
   })
   .catch(error => {
-      console.log(error.response.data.notifications.formErrors[0].code)
+    body = error.response.data //.notifications.fieldErrors
+    // console.log('here it is ',body)
+    if ('httpStatusCode' in body){
+      console.log('one');
+      let message = error.response.data.httpStatusCode
+      res.render('index', { title: message });
+    } 
+    else if(body.notifications.fieldErrors !== null) {
+      console.log('two');
+      let message = error.response.data.notifications.fieldErrors[0].code
+      res.render('index', { title: message });
+    } 
+    else {
+      console.log('three');
+      let message = error.response.data.notifications.formErrors[0].code
+      console.log(message)
+      res.render('index', { title: message });
+    }
   });
     
 });
