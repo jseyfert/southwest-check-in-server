@@ -2,4 +2,4 @@ DEBUG=myapp:* npm start
 
 http://localhost:3000/
 
-// headers: { 'Content-Type': 'application/json' },
+// headers: { 'Content-Type': 'application/json' }
