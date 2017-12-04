@@ -1,83 +1,78 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var newTrip = require('../models/trip.js');
+var Trip = require('../models/trip.js');
+var moment = require('moment-timezone');
+var SendMail = require('../config/email.js');
+// http://localhost:3000/submitCheckIn/john/seyfert/MWVE2L/johnseyfert@gmail.com/2013-11-18 15:55/HI
 
-
-router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress', function(req, res, next) {
-
-// http://localhost:3000/submitCheckIn/john/seyfert/MWVE2L/johnseyfert@gmail.com
+router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress/:dateTimeDeparture/:timeZoneDeparture', function(req, res, next) {
 
   var firstName = req.params.firstName
   var lastName = req.params.lastName
   var confirmationNumber = req.params.confirmationNumber
   var emailAddress = req.params.emailAddress
-  var dateSubmitted = req.params.dateSubmitted
+  var dateSubmitted = new Date();
 
-*** work on writing data to the DB  &&&& add date/time/timezone of where you are flying out of
+  var dateTimeDeparture = req.params.dateTimeDeparture
+  var timeZoneDeparture = req.params.timeZoneDeparture
+  switch (timeZoneDeparture) {
+    case 'HI':
+      timeZoneDeparture = "Pacific/Honolulu"
+      break
+    case 'AL':
+      timeZoneDeparture = "America/Denver/Anchorage"
+      break
+    case 'PA':
+      timeZoneDeparture = "America/Los_Angeles" 
+      break
+    case 'MT':
+      timeZoneDeparture = "America/Denver" 
+      break
+    case 'CE':
+      timeZoneDeparture = "America/Chicago"
+      break
+    case 'ES':
+      timeZoneDeparture = "America/New_York"
+      break
+    default:
+      timeZoneDeparture = "ERROR"
+  }
+  console.log('dateTimeDeparture', dateTimeDeparture);
+  console.log('timeZoneDeparture', timeZoneDeparture);
 
-
-  // newTrip.save(function(err){
-  //   if(err) {
-  //     throw err;
-  //   } else {
-  //     console.log('worked');
-  //     // SendMail(req.body.user, email, link, null)
-  //     // return done(null, newUser, { message: 'You successfully signed up.' });
-  //   }
-  // })
-
-  //     UserModel.findOne({'passwordResetToken': passwordResetToken}, function (err, user) {
-  //       if(err){
-  //         return console.log('error', err);
-  //       } else if (user){
-  //         if (user.passwordResetExpires > Date.now()) {
-  //           // console.log('password is ready to be updated');
-  //           res.json({
-  //             message: {message: 'The token worked! Password is ready to be updated', alert: 'alert alert-success'},
-  //             activeComponent: 'resetPassword',
-  //             passwordResetToken: passwordResetToken
-  //           })
-  //         } else {
-  //           // console.log('The token is expired');
-  //           res.json({
-  //             message: {message: "The token is expired", alert: 'alert alert-danger'},
-  //             activeComponent: 'confirmToken'
-  //           })
-  //         }
-  //       } else {
-  //           // console.log('The token is wrong');
-  //           res.json({
-  //             message: {message: "The token is wrong", alert: 'alert alert-danger'},
-  //             activeComponent: 'confirmToken',
-  //           })
-  //       }
-  //     }); 
-  // },
-
-  res.render('index', { title: 'MONGO' });
-
-});
-
-module.exports = router;
+  var dateTimeZoneDeparture = moment.tz(dateTimeDeparture, timeZoneDeparture).format();
+  console.log('dateTimeZoneDeparture', dateTimeZoneDeparture);
 
 
+  Trip.findOne({ confirmationNumber: confirmationNumber }, function(err, trip){
+    if(err)
+      return done(err);
+    if(trip) {
+      res.render('index', { title: 'This trip is already registered' });
+      // return done(null, false, {message: 'That email is taken'});
+    } else {
 
-// var MongoClient = require('mongodb').MongoClient
+      var newTrip = new Trip();
+      newTrip.firstName = firstName;
+      newTrip.lastName = lastName;
+      newTrip.confirmationNumber = confirmationNumber;
+      newTrip.emailAddress = emailAddress;
+      newTrip.dateSubmitted = dateSubmitted;
+      newTrip.dateTimeZoneDeparture = dateTimeZoneDeparture;
 
-// MongoClient.connect('mongodb://localhost:27017/animals', function (err, db) {
-//   if (err) throw err
+      newTrip.save(function(err){
+        if(err) {
+          throw err;
+        } else {
+          SendMail(firstName, emailAddress, confirmationNumber, dateTimeZoneDeparture, 'newSuccess')
+          res.render('index', { title: 'Trip has been registered' });
+          // return done(null, newUser, { message: 'You successfully signed up.' });
+        }
+      })
+    }
+  });
+    // res.render('index', { title: 'MONGO' });
+  });
 
-//   db.collection('mammals').find().toArray(function (err, result) {
-//     if (err) throw err
-
-//     console.log(result)
-//   })
-// })
-
-// <option value="" selected="selected">select your timezone</option>
-// <option value="(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima">(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima</option>
-// <option value="(GMT -6:00) Central Time (US & Canada), Mexico City">(GMT -6:00) Central Time (US & Canada), Mexico City</option>
-// <option value="(GMT -7:00) Mountain Time (US & Canada)">(GMT -7:00) Mountain Time (US & Canada)</option>
-// <option value="(GMT -8:00) Pacific Time (US & Canada)">(GMT -8:00) Pacific Time (US & Canada)</option>
-// <option value="(GMT -9:00) Alaska">(GMT -9:00) Alaska</option>
+  module.exports = router;
