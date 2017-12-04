@@ -1,14 +1,11 @@
-//account for a general error in casea the site changes
 var express = require('express');
 var router = express.Router();
 const axios = require("axios");
+// http://localhost:3000/checkIn/john/seyfert/MWVE2L/johnseyfert@gmail.com
+// http://localhost:3000/checkIn/john/seyfert/LNUF87/johnseyfert@gmail.com //not found
 
 router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress', function(req, res, next) {
 
-  // console.log('asdfasdf', req.params);
-
-  // http://localhost:3000/checkIn/john/seyfert/MWVE2L/johnseyfert@gmail.com
-  // http://localhost:3000/checkIn/john/seyfert/LNUF87/johnseyfert@gmail.com //not found
 
 var firstName = req.params.firstName
 var lastName = req.params.lastName
@@ -109,7 +106,7 @@ axios.get(url1)
     console.log('working4444');
     console.log('response.data', response.data);
     res.render('index', { title: response.data.success });
-    // response.data { data: null, success: true, notifications: null } this is the final json that is returned
+    // { data: null, success: true, notifications: null } // this is the final json that is returned
   })
   .catch(error => {
     body = error.response.data //.notifications.fieldErrors
@@ -131,60 +128,16 @@ axios.get(url1)
       res.render('index', { title: message });
     }
   });
-    
 });
 
 module.exports = router;
-
 
 // const testUrl2 = "https://maps.googleapis.com/maps/api/geocode/json?address=austin";
 // const testUrl3 = "https://maps.googleapis.com/maps/api/geocode/json?address=boston";
 // const testUrl4 = "https://maps.googleapis.com/maps/api/geocode/json?address=denver";
 // const testUrl5 = "https://maps.googleapis.com/maps/api/geocode/json?address=missoula";
-
-
 // console.log(
 //   `City: ${response.data.results[0].formatted_address} -`,
 //   `Latitude: ${response.data.results[0].geometry.location.lat} -`,
 //   `Longitude: ${response.data.results[0].geometry.location.lng}`
 // );
-
-// const headers = {'Content-Type': 'application/json', 'X-API-Key': 'l7xx944d175ea25f4b9c903a583ea82a1c4c'}
-
-// SignIn = () => {
-//     console.log('login clicked')
-//     // let data = JSON.stringify({
-//     //     password: this.state.password,
-//     //     username: this.state.email
-//     // })
-//     let data = JSON.stringify({
-//       confirmationNumber:confirmationNumber, 
-//       passengerFirstName:firstName, 
-//       passengerLastName:lastName, 
-//       site:"southwest"
-//     })
-
-//     axios.post(url2, data, {
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'X-API-Key': 'l7xx944d175ea25f4b9c903a583ea82a1c4c',
-//         }
-//     }
-//     )
-//       .then((response) => {
-//         console.log('asdfasfdasfasdfasdfasdfadsf');
-//         // console.log('headers', headers);
-//         // console.log('data', data);
-//         // console.log(
-//         //   `City: ${response.data.results[0].formatted_address} -`,
-//         //   `Latitude: ${response.data.results[0].geometry.location.lat} -`,
-//         //   `Longitude: ${response.data.results[0].geometry.location.lng}`
-//         // );
-//         // return axios.post(url2, data, headers);
-//       })
-//         .catch(error => {
-//             console.log(error.response.data.notifications.formErrors[0].code)
-//         });
-// }
-
-// SignIn()

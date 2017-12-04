@@ -14,6 +14,9 @@ require('dotenv').config();
 
 var app = express();
 
+
+*** next build out trigger that fires to run checkin route
+
 // //////////////////////////////
 
 // Hawaii     // "Pacific/Honolulu"            // "HI"     
