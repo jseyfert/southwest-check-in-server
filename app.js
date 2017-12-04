@@ -15,6 +15,13 @@ require('dotenv').config();
 var app = express();
 
 
+/node_modules
+.env
+
+MONGO_URI=mongodb://localhost:27017/southWestCheckIn
+
+GOOGLE_ID=johnseyfertfake
+GOOGLE_SECRET=1982Johnfake
 
 *** next build out trigger that fires to run checkin route
 
