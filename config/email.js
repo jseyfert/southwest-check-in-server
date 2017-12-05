@@ -21,7 +21,7 @@ var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeZon
       text: textCheckinSuccess,
     };
   } else if (type === "checkinError"){
-    var textCheckinError = "Hi " + firstName + ",\n\nSouthwest-Checkinh has failed to check you in automatically. Please manually check in at southwest.com.\n\nConfirmation Number: " + confirmationNumber + "\n\nCheers Big Ears!"
+    var textCheckinError = "Hi " + firstName + ",\n\nSouthwest-Checkin has failed to check you in automatically. Please manually check in at southwest.com.\n\nConfirmation Number: " + confirmationNumber + "\n\nCheers Big Ears!"
     var mailOptions = {
       from: "Southwest-Checkin <johnseyfertfake@gmail.com>",
       to: emailAddress,
@@ -29,12 +29,14 @@ var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeZon
       text: textCheckinError,
     };
   }
+
   transporter.sendMail(mailOptions, function(error, info){
       if(error){
         return console.log('in error', error);
       }
       console.log('Message sent: ' + info.response);
   });
+
 }
 
 module.exports = SendMail;

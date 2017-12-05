@@ -78,7 +78,7 @@ router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress/:dateTimeDep
       })
     }
   });
-    // res.render('index', { title: 'MONGO' });
-  });
+  
+});
 
-  module.exports = router;
+module.exports = router;

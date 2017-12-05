@@ -6,16 +6,16 @@ const SendMail = require('../config/email.js');
 
 var polling = function(){
 
-  console.log('The answer to life, the universe, and everything!');
+  ****next figure out all the times/dates in the app
 
   var date = new Date();
-  var date = moment(date);
-  // var oneMinAgo = moment(date).subtract(1, 'minute');
-  // var inFourMin = moment(date).add(4, 'minute');
+  // var oneMinAgo = moment(date).subtract(1, 'minute');  
+  // var inThreeMin = moment(date).add(3, 'minute');
 
   var oneMinAgo = moment(date).subtract(10, 'day');
   var inTenMin = moment(date).add(10, 'day');
 
+  // var date = moment(date);
   // console.log(oneMinAgo.format());
   // console.log(date.format());
   // console.log(inTenMin.format());
@@ -43,17 +43,35 @@ var polling = function(){
               let confirmationNumber = response.data.confirmationNumber
               let emailAddress = response.data.emailAddress
               console.log('response.data', message, firstName, lastName, confirmationNumber, emailAddress);
-
               if (message === 'checkedIn') {
                 console.log('checkedIn', firstName, confirmationNumber);
                 SendMail(firstName, emailAddress, confirmationNumber, null, 'checkinSuccess')
-
-                **** update record to checked in
+                Trip.findOneAndUpdate({'confirmationNumber': confirmationNumber}, {'checkedIn': true}, function (err, resp) {
+                  if(err){
+                    console.log(err)
+                  } else {
+                    console.log('trip has been updated in the DB as checkedIn');
+                  }
+                });
               } else {
-                console.log('in not checked in');
-                SendMail(firstName, emailAddress, confirmationNumber, null, 'checkinError')
+                Trip.findOne({ confirmationNumber: confirmationNumber }, function(err, trip){
+                  if(err)
+                    return done(err);
+                  if(trip) {
+                    var date = moment(date);
+                    var fourMinAgo = moment(date).subtract(4, 'minute');
+                    var dateToExecute = trip.dateToExecute
+                    // console.log("fourMinAgo",fourMinAgo);
+                    // console.log("dateToExecute",dateToExecute);
+                    // console.log("> then",fourMinAgo > dateToExecute);
+                    // console.log("< then",fourMinAgo < dateToExecute);
+                    if (fourMinAgo > dateToExecute){
+                      SendMail(firstName, emailAddress, confirmationNumber, null, 'checkinError')
+                    }
+                  } 
 
-                *** figure out when to send email and when not to
+                });
+
               }
 
             })
