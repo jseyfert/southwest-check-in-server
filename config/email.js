@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 
-var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeZoneDeparture, type){
+var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeZoneDeparture, type, error){
 
   var transporter = nodemailer.createTransport('smtps://' + process.env.GOOGLE_ID + '%40gmail.com:' + process.env.GOOGLE_SECRET + '@smtp.gmail.com');
 
@@ -21,7 +21,7 @@ var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeZon
       text: textCheckinSuccess,
     };
   } else if (type === "checkinError"){
-    var textCheckinError = "Hi " + firstName + ",\n\nSouthwest-Checkin has failed to check you in automatically. Please manually check in at southwest.com.\n\nConfirmation Number: " + confirmationNumber + "\n\nCheers Big Ears!"
+    var textCheckinError = "Hi " + firstName + ",\n\nSouthwest-Checkin has failed to check you in automatically. Please manually check in at southwest.com.\n\nConfirmation Number: " + confirmationNumber + "\nError: " + error + "\n\nCheers Big Ears!"
     var mailOptions = {
       from: "Southwest-Checkin <johnseyfertfake@gmail.com>",
       to: emailAddress,

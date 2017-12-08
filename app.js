@@ -1,3 +1,8 @@
+// app.js
+//   -submitCheckIn.sj
+//   -polling.js
+//     -checkin.js
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -100,9 +105,9 @@ app.use('/', index);
 app.use('/checkIn', checkIn);
 app.use('/submitCheckIn', submitCheckIn);
 
-var j = schedule.scheduleJob('* * * * *', function(){
+// var j = schedule.scheduleJob('* * * * *', function(){
   polling()
-});
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
