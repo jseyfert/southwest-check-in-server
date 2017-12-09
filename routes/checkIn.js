@@ -25,15 +25,15 @@ axios.get(url1)
       site:"southwest"
     })
 
-    console.log('checking.js > working1');
+    // console.log('checking.js > working1');
 
     return axios.post(url2, data2, headers)
 
   })
   .then((response) => {
-    console.log('checking.js > working22');
     let token = response.data.data.searchResults.token
-    console.log('token',token);
+    // console.log('checking.js > working22');
+    // console.log('token',token);
 
     const data3 = JSON.stringify({
       airportCheckInRequiredReservation:false,
@@ -52,9 +52,9 @@ axios.get(url1)
 
   })
   .then((response) => {
-    console.log('checking.js > working333');
     let token = response.data.data.searchResults.token
-    console.log('token',token);
+    // console.log('checking.js > working333');
+    // console.log('token',token);
 
     const data4 = JSON.stringify({
       deliveryMethod:"EMAIL",
@@ -69,7 +69,7 @@ axios.get(url1)
 
   })
   .then((response) => {
-    console.log('checking.js > working4444', response.data.success);
+    // console.log('checking.js > working4444', response.data.success);
     res.json({ 
       message: 'checkedIn',
       firstName: firstName,
@@ -83,7 +83,7 @@ axios.get(url1)
     body = error.response.data
     if ('httpStatusCode' in body){
       let message = error.response.data.httpStatusCode
-      console.log('checking.js > error one ===>', message);
+      // console.log('checking.js > error one ===>', message);
       res.json({ 
         message: message,
         firstName: firstName,
@@ -94,7 +94,7 @@ axios.get(url1)
     } 
     else if(body.notifications.fieldErrors !== null) {
       let message = error.response.data.notifications.fieldErrors[0].code
-      console.log('checking.js > error two ===>', message);
+      // console.log('checking.js > error two ===>', message);
       res.json({ 
         message: message,
         firstName: firstName,
@@ -105,7 +105,7 @@ axios.get(url1)
     } 
     else {
       let message = error.response.data.notifications.formErrors[0].code
-      console.log('checking.js > error three ===>', message);
+      // console.log('checking.js > error three ===>', message);
       res.json({ 
         message: message,
         firstName: firstName,
@@ -113,7 +113,6 @@ axios.get(url1)
         confirmationNumber: confirmationNumber,
         emailAddress: emailAddress,
         })
-      // res.render('index', { title: message });
     }
   });
 });

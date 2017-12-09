@@ -21,7 +21,7 @@ var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeZon
       text: textCheckinSuccess,
     };
   } else if (type === "checkinError"){
-    var textCheckinError = "Hi " + firstName + ",\n\nSouthwest-Checkin has failed to check you in automatically. Please manually check in at southwest.com.\n\nConfirmation Number: " + confirmationNumber + "\nError: " + error + "\n\nCheers Big Ears!"
+    var textCheckinError = "Hi " + firstName + ",\n\nSouthwest-Checkin failed to check you in automatically. Please manually check in at southwest.com.\n\nConfirmation Number: " + confirmationNumber + "\nError: " + error + "\n\nCheers Big Ears!"
     var mailOptions = {
       from: "Southwest-Checkin <johnseyfertfake@gmail.com>",
       to: emailAddress,

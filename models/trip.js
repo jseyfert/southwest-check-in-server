@@ -6,6 +6,7 @@ var TripSchema = new mongoose.Schema({
   confirmationNumber: { type: String, required: true },
   emailAddress: { type: String, required: true },
   checkedIn: { type: Boolean, required: true },
+  errorEmailSent: { type: Boolean, required: true },
   attempts: { type: Number, required: false },
   timeZoneDeparture: { type: String, required: true },
   dateTimeZoneDeparture: { type: String, required: true },
