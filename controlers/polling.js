@@ -78,7 +78,7 @@ var polling = function(){
           });
         })
     } else {
-      console.log('==========> no trip');
+      // console.log('==========> no trip');
     }
   });
 }
