@@ -118,26 +118,3 @@ axios.get(url1)
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-// http://localhost:3000/checkIn/john/seyfert/MWVE2L/johnseyfert@gmail.com
-// http://localhost:3000/checkIn/john/seyfert/LNUF87/johnseyfert@gmail.com //not found
-
-// res.render('index', { title: message });
-
-// const testUrl2 = "https://maps.googleapis.com/maps/api/geocode/json?address=austin";
-// const testUrl3 = "https://maps.googleapis.com/maps/api/geocode/json?address=boston";
-// const testUrl4 = "https://maps.googleapis.com/maps/api/geocode/json?address=denver";
-// const testUrl5 = "https://maps.googleapis.com/maps/api/geocode/json?address=missoula";
-// console.log(
-//   `City: ${response.data.results[0].formatted_address} -`,
-//   `Latitude: ${response.data.results[0].geometry.location.lat} -`,
-//   `Longitude: ${response.data.results[0].geometry.location.lng}`
-// );
