@@ -14,6 +14,7 @@ var schedule = require('node-schedule');
 var index = require('./routes/index');
 var checkIn = require('./routes/checkIn');
 var submitCheckIn = require('./routes/submitCheckIn');
+var getExisting = require('./routes/getExisting');
 var polling = require('./controlers/polling');
 
 require('dotenv').config();
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/checkIn', checkIn);
 app.use('/submitCheckIn', submitCheckIn);
+app.use('/getExisting', getExisting);
 
 var j = schedule.scheduleJob('* * * * *', function(){
   polling()

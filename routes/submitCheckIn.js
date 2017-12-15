@@ -102,4 +102,4 @@ router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress/:dateTimeDep
 
 module.exports = router;
 
-// http://localhost:3000/submitCheckIn/john/seyfert/MWVE2L/johnseyfert@gmail.com/2017-12-06 16:40/PA
+// http://localhost:3001/submitCheckIn/john/seyfert/MWVE2L/johnseyfert@gmail.com/2017-12-06 16:40/PA
