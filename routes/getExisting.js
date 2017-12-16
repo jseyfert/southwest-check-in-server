@@ -13,7 +13,7 @@ router.get('/:confirmationNumber', function(req, res, next) {
         res.send(err);
       } else {
         res.json({
-          pageType: 'tripsSuccess',
+          pageType: 'landing',
           message: 'Here is your trip',
           data: trips,
         })
@@ -29,13 +29,13 @@ router.get('/:confirmationNumber', function(req, res, next) {
         })
       if(trip) {
         res.json({
-          pageType: 'tripsSuccess',
+          pageType: 'landing',
           message: 'Here is your trip',
           data: [trip],
         })
       } else {
         res.json({
-          pageType: 'tripsError',
+          pageType: 'landing',
           message: 'Could not find trip',
           data: [],
         })

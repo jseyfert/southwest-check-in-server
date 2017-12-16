@@ -44,11 +44,11 @@ router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress/:dateTimeDep
   var date = new Date();
   var dateSubmitted = moment(date).format();
 
-  // console.log('formatdateToExecute', formatdateToExecute)
-  // console.log('dateTimeDeparture', dateTimeDeparture);
-  // console.log('timeZoneDeparture', timeZoneDeparture);
-  // console.log('dateTimeZoneDeparture', dateTimeZoneDeparture);
-  // console.log('dateToExecute', dateToExecute);
+  console.log('formatdateToExecute', formatdateToExecute)
+  console.log('dateTimeDeparture', dateTimeDeparture);
+  console.log('timeZoneDeparture', timeZoneDeparture);
+  console.log('dateTimeZoneDeparture', dateTimeZoneDeparture);
+  console.log('dateToExecute', dateToExecute);
 
 
   Trip.findOne({ confirmationNumber: confirmationNumber }, function(err, trip){
