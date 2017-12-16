@@ -15,6 +15,7 @@ var index = require('./routes/index');
 var checkIn = require('./routes/checkIn');
 var submitCheckIn = require('./routes/submitCheckIn');
 var getExisting = require('./routes/getExisting');
+var deleteTrip = require('./routes/deleteTrip');
 var polling = require('./controlers/polling');
 
 require('dotenv').config();
@@ -40,6 +41,7 @@ app.use('/', index);
 app.use('/checkIn', checkIn);
 app.use('/submitCheckIn', submitCheckIn);
 app.use('/getExisting', getExisting);
+app.use('/deleteTrip', deleteTrip);
 
 var j = schedule.scheduleJob('* * * * *', function(){
   polling()
