@@ -25,7 +25,7 @@ var polling = function(){
         // console.log('dateToExecute          = ',dateToExecute)
         // console.log('inTwoMin               = ',inTwoMin);
 
-        var url = "http://localhost:3000/checkIn/" + firstName + "/" + lastName + "/" + confirmationNumber + "/" + emailAddress
+        var url = "http://localhost:3001/checkIn/" + firstName + "/" + lastName + "/" + confirmationNumber + "/" + emailAddress
         axios.get(url)
           .then((response) => {
             let message = response.data.message
