@@ -12,7 +12,7 @@ var polling = function(){
 
   Trip.find({ checkedIn: false, errorEmailSent: false, dateToExecute: {$gte: thirtyMinAgo, $lt: inTwoMin}}, function(err, trip){
     if(err)
-      return done(err);
+      console.log("polling.js > 1 > error", err);
     if(trip.length > 0) {
       console.log('==========> trip(s) found');
       trip.forEach(function(obj){
@@ -37,7 +37,7 @@ var polling = function(){
               SendMail(firstName, emailAddress, confirmationNumber, null, 'checkinSuccess', null)
               Trip.findOneAndUpdate({'confirmationNumber': confirmationNumber}, {'checkedIn': true}, function (err, resp) {
                 if(err){
-                  return done(err);
+                  console.log("polling.js > 2 > error", err);
                 } else {
                   console.log('trip has been updated in the DB as checkedIn');
                 }
@@ -45,7 +45,7 @@ var polling = function(){
             } else {
               Trip.findOne({ confirmationNumber: confirmationNumber }, function(err, trip){
                 if(err)
-                  return done(err);;
+                  console.log("polling.js > 3 > error", err);
                 if(trip) {
                   var errorEmailSent = trip.errorEmailSent
                   var attempts = trip.attempts
@@ -53,7 +53,7 @@ var polling = function(){
                   if (attempts <= 4 && !errorEmailSent ){
                     Trip.findOneAndUpdate({'confirmationNumber': confirmationNumber}, {'attempts': attempts}, function (err, resp) {
                       if(err){
-                        return done(err);
+                        console.log("polling.js > 4 > error", err);
                       } else {
                         console.log('attempts updated in the DB to = ' + attempts + ' & errorEmailSent = ' + errorEmailSent);
                       }
@@ -62,7 +62,7 @@ var polling = function(){
                     SendMail(firstName, emailAddress, confirmationNumber, null, 'checkinError', message)
                     Trip.findOneAndUpdate({'confirmationNumber': confirmationNumber}, {'errorEmailSent': true}, function (err, resp) {
                       if(err){
-                        return done(err);
+                        console.log("polling.js > 5 > error", err);
                       } else {
                         console.log('trip has been updated in the DB as errorEmailSent = true');
                       }
