@@ -35,4 +35,5 @@ router.get('/:_id', function(req, res, next) {
 
 module.exports = router;
 
-// http://localhost:3001/deleteTrip/5a34e44d330f9d0416396cf4
+// http://localhost:3001/deleteTrip/5a34e474ead1ac04411b1ae5
+// http://ec2-52-35-164-107.us-west-2.compute.amazonaws.com:3001/deleteTrip/5a34e474ead1ac04411b1ae5

@@ -73,8 +73,7 @@ var polling = function(){
             }
           })
           .catch(error => {
-            console.log("polling.js > ERROR");
-            return done(err);
+            console.log("polling.js > ERROR", error);
           });
         })
     } else {
