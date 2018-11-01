@@ -1,11 +1,11 @@
 var nodemailer = require('nodemailer');
 
-var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeZoneDeparture, type, error){
+var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeDeparture, timeZoneDeparture, type, error){
 
   var transporter = nodemailer.createTransport('smtps://' + process.env.GOOGLE_ID + '%40gmail.com:' + process.env.GOOGLE_SECRET + '@smtp.gmail.com');
 
   if(type === "newSuccess"){
-    var textNewSuccess = "Hi " + firstName + ",\n\nYour trip has been registerd with Southwest Auto Check-In. We will automatically check you in exactly 24 hours before your departure. You will receive a status update when this occurs.\n\nConfirmation Number: " + confirmationNumber + "\nDeparture: " + dateTimeZoneDeparture + "\n\nCheers Big Ears!"
+    var textNewSuccess = "Hi " + firstName + ",\n\nYour trip has been registerd with Southwest Auto Check-In. We will automatically check you in exactly 24 hours before your departure.\n\nConfirmation Number: " + confirmationNumber + "\nDeparture: " + dateTimeDeparture.split("T")[0] + " @ " + dateTimeDeparture.split("T")[1] + " " + timeZoneDeparture + "\n\nCheers Big Ears!"
     var mailOptions = {
       from: "Southwest Auto Check-In <johnseyfertfake@gmail.com>",
       to: emailAddress,

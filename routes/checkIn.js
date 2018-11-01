@@ -22,6 +22,7 @@ axios.get(url1)
       confirmationNumber:confirmationNumber, 
       passengerFirstName:firstName, 
       passengerLastName:lastName, 
+      application:"air-check-in",
       site:"southwest"
     })
 

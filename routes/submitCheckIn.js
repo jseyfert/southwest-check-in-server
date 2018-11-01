@@ -87,7 +87,7 @@ router.get('/:firstName/:lastName/:confirmationNumber/:emailAddress/:dateTimeDep
             dateToExecute: '',
           })
         } else {
-          SendMail(firstName, emailAddress, confirmationNumber, dateTimeZoneDeparture, 'newSuccess', null)
+          SendMail(firstName, emailAddress, confirmationNumber, dateTimeDeparture, timeZoneDeparture, 'newSuccess', null)
           res.json({
             pageType: 'success',
             message: '',

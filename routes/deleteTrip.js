@@ -13,21 +13,21 @@ router.get('/:_id', function(req, res, next) {
       // res.json({
       //   pageType: 'tripsError',
       //   message: 'getExisting.js > Trip.findOne',
-      //   data: [],
+      //   // data: [],
       // })
     if(trip) {
       console.log('deleted',trip)
       res.json({
-        // pageType: 'landing',
-        message: 'deleted',
+        pageType: 'tripDeleted',
+        // message: 'trip deleted',
         // data: [trip],
       })
     } else {
       console.log('not found',err)
       // res.json({
-      //   pageType: 'landing',
-      //   message: 'Could not find trip',
-      //   data: [],
+      //   pageType: 'tripsError',
+      //   message: 'Could not delete trip',
+      //   // data: [],
       // })
     }
   });
