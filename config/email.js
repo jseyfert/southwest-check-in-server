@@ -4,12 +4,20 @@ var SendMail = function(firstName, emailAddress, confirmationNumber, dateTimeDep
 
   var transporter = nodemailer.createTransport('smtps://' + process.env.GOOGLE_ID + '%40gmail.com:' + process.env.GOOGLE_SECRET + '@smtp.gmail.com');
 
-  if(type === "newSuccess"){
+  if (type === "newSuccess"){
     var textNewSuccess = "Hi " + firstName + ",\n\nYour trip has been registerd with Southwest Auto Check-In. We will automatically check you in exactly 24 hours before your departure.\n\nConfirmation Number: " + confirmationNumber + "\nDeparture: " + dateTimeDeparture.split("T")[0] + " @ " + dateTimeDeparture.split("T")[1] + " " + timeZoneDeparture + "\n\nCheers Big Ears!"
     var mailOptions = {
       from: "Southwest Auto Check-In <johnseyfertfake@gmail.com>",
       to: emailAddress,
       subject: 'Success ✔ - Your trip has been registered (' + confirmationNumber + ')' ,
+      text: textNewSuccess,
+    };
+  } else if (type === "returnSuccess"){
+    var textNewSuccess = "Your return trip has been registerd with Southwest Auto Check-In.\n\nConfirmation Number: " + confirmationNumber + "\nDeparture: " + dateTimeDeparture.split("T")[0] + " @ " + dateTimeDeparture.split("T")[1] + " " + timeZoneDeparture
+    var mailOptions = {
+      from: "Southwest Auto Check-In <johnseyfertfake@gmail.com>",
+      to: emailAddress,
+      subject: 'Return trip registered (' + confirmationNumber + ')' ,
       text: textNewSuccess,
     };
   } else if (type === "checkinSuccess"){
